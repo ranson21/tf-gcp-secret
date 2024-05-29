@@ -8,7 +8,7 @@ This is a minimal terraform module for adding a secret to Google Cloud Secrets M
 
 *terragrunt.hcl*
 ```hcl
-source = "git@github.com:ransontesting/tf-gcp-secret"
+source = "git@github.com:ranson21/tf-gcp-secret"
 
 inputs = {
   ...
