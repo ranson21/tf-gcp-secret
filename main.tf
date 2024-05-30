@@ -1,18 +1,20 @@
 resource "google_secret_manager_secret" "secret" {
-  secret_id = var.name
+  for_each  = var.secrets
+  secret_id = each.key
 
   labels = {
-    label = "${var.name}"
+    label = "${each.key}"
   }
 
   replication {
-    auto {}
+    automatic = true
   }
 }
 
 
-resource "google_secret_manager_secret_version" "secret-version-basic" {
-  secret = google_secret_manager_secret.secret.id
+resource "google_secret_manager_secret_version" "secret_version" {
+  for_each = google_secret_manager_secret.secret
+  secret   = each.value.id
 
-  secret_data = var.secret
+  secret_data = var.secrets[each.value.secret_id]
 }
